@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:latest
+FROM condaforge/mambaforge:latest
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
@@ -18,13 +18,7 @@ RUN mkdir /var/run/sshd \
     && echo 'UsePAM yes' >> /etc/ssh/sshd_config \
     && echo 'AllowTcpForwarding yes' >> /etc/ssh/sshd_config
 
-RUN conda config --add channels conda-forge && \
-    conda config --remove channels defaults && \
-    conda install -y 'mamba>=0.22.1' libarchive 
-
-RUN conda init
-
-RUN mamba install -y uvicorn 
+RUN mamba install -y pytorch torchvision torchaudio cudatoolkit=11.6 -c pytorch -c conda-forge
 
 COPY setup-keys.sh /bin/
 WORKDIR /workspace
