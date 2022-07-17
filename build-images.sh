@@ -8,12 +8,12 @@ build_push() {
   docker build -t "$image" .
 
   echo; echo "Pushing $image"
-  docker push "$image"
+  #docker push "$image"
 }
 
 build_push $repository:base
 
-for name in $(ls variants); do
-  image="$repository:$name"
-  ( cd "variants/${name}" && build_push $image . )
-done
+#for name in $(ls variants); do
+#  image="$repository:$name"
+#  ( cd "variants/${name}" && build_push $image . )
+#done
